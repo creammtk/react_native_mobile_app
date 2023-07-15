@@ -2,12 +2,14 @@ import { StyleSheet, Text, View } from 'react-native'
 import React, { Component } from 'react'
 import TagName from './Components/ToDoList/TagName'
 import SearchFilter from './Components/ToDoList/SearchFilter'
+import ToDoList from './Components/ToDoList/ToDoList'
 
 export default function App() {
     return (
       <View style={styles.base}>
         <TagName />
         <SearchFilter />
+        <ToDoList />
       </View>
     )
 }
