@@ -9,10 +9,18 @@ import {
 import React from "react";
 import FilterIcon from "../../assets/filter.png";
 
-export default function SearchFilter() {
+export default function SearchFilter({ filter, setFilter }) {
   return (
     <View style={styles.container}>
-      <TextInput placeholder="Search" style={styles.searchInput} />
+      <TextInput
+        placeholder="Search"
+        style={styles.searchInput}
+        value={filter}
+        onChange={(e) => {
+          const value = e.nativeEvent.text
+          setFilter(value)
+        }}
+      />
       <TouchableOpacity>
         <View style={styles.imageContainer}>
           <Image source={FilterIcon} style={styles.image} />
