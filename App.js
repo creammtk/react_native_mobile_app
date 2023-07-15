@@ -10,22 +10,16 @@ export default function App() {
   const [filter, setFilter] = useState("");
 
   useEffect(() => {
-    if (!filter) {
-      setToDoList(todos)
-      return
-    };
-    setToDoList((prev) =>
-      prev.filter(
-        (todo) =>
-          todo.title.toLowerCase().includes(filter.toLowerCase()) ||
-          todo.detail.toLowerCase().includes(filter.toLowerCase())
-      )
-    );
+    setToDoList(todos.filter(
+      (todo) =>
+        todo.title.toLowerCase().includes(filter.toLowerCase()) ||
+        todo.detail.toLowerCase().includes(filter.toLowerCase())
+    ));
   }, [filter]);
 
   return (
     <View style={styles.base}>
-      <TagName />
+      <TagName pendingTaskNo={toDoList.length} />
       <SearchFilter filter={filter} setFilter={setFilter} />
       <ToDoList toDoList={toDoList} />
     </View>

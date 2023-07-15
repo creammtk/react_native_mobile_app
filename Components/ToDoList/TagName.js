@@ -3,9 +3,8 @@ import React from "react";
 import CustomText from "../CustomText";
 import avatar from "../../assets/man.png";
 
-export default function TagName() {
+export default function TagName({ pendingTaskNo }) {
   const name = "Franku";
-  const pendingTaskNo = 10;
 
   return (
     <View style={styles.container}>
@@ -13,7 +12,7 @@ export default function TagName() {
         <CustomText style={styles.greetingText}>Hi! {name}</CustomText>
         <TouchableOpacity>
           <CustomText style={styles.pendingText}>
-            {pendingTaskNo} Tasks pending
+            {pendingTaskNo || 0} Tasks pending
           </CustomText>
         </TouchableOpacity>
       </View>
