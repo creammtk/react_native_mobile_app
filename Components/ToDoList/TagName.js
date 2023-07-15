@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import CustomText from "../CustomText";
 import avatar from "../../assets/man.png";
@@ -11,13 +11,17 @@ export default function TagName() {
     <View style={styles.container}>
       <View>
         <CustomText style={styles.greetingText}>Hi! {name}</CustomText>
-        <CustomText style={styles.pendingText}>
-          {pendingTaskNo} Tasks pending
-        </CustomText>
+        <TouchableOpacity>
+          <CustomText style={styles.pendingText}>
+            {pendingTaskNo} Tasks pending
+          </CustomText>
+        </TouchableOpacity>
       </View>
-      <View>
-        <Image source={avatar} style={styles.avatarPic} />
-      </View>
+      <TouchableOpacity>
+        <View>
+          <Image source={avatar} style={styles.avatarPic} />
+        </View>
+      </TouchableOpacity>
     </View>
   );
 }

@@ -2,9 +2,7 @@ import { View, Text, StyleSheet, ScrollView } from "react-native";
 import React from "react";
 import ToDoCard from "./ToDoCard";
 
-export default function ToDoList() {
-  const todos = Array.from(Array(10).keys());
-
+export default function ToDoList({ toDoList }) {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>To-Do List</Text>
@@ -12,10 +10,8 @@ export default function ToDoList() {
         style={{ padding: 20 }}
         contentContainerStyle={{ paddingBottom: 200 }}
       >
-        {todos.map((v, i) => (
-          <>
-            <ToDoCard />
-          </>
+        {toDoList.map((todo, i) => (
+          <ToDoCard key={i} todo={todo}/>
         ))}
       </ScrollView>
     </View>
@@ -31,5 +27,5 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 900,
     marginBottom: 10,
-  }
+  },
 });

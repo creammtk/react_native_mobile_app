@@ -1,16 +1,13 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 
-export default function ToDoCard() {
-  const title = "Sleep";
-  const detail =
-    "She hadn't had her cup of coffee, and that made things all the worse.";
+export default function ToDoCard({todo}) {
 
   return (
     <View style={styles.cardContainer}>
-      <Text style={styles.textHeader}>{title}</Text>
+      <Text style={styles.textHeader}>{todo.title}</Text>
       <Text></Text>
-      <Text>{detail}</Text>
+      <Text>{todo.detail}</Text>
     </View>
   );
 }
