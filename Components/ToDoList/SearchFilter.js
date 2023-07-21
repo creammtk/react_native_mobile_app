@@ -6,27 +6,34 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import FilterIcon from "../../assets/filter.png";
+import CustomModal from "../CustomModal";
 
 export default function SearchFilter({ filter, setFilter }) {
+  const [isModalShown, setIsModalShown] = useState(false)
   return (
-    <View style={styles.container}>
-      <TextInput
-        placeholder="Search"
-        style={styles.searchInput}
-        value={filter}
-        onChange={(e) => {
-          const value = e.nativeEvent.text
-          setFilter(value)
-        }}
-      />
-      <TouchableOpacity>
-        <View style={styles.imageContainer}>
-          <Image source={FilterIcon} style={styles.image} />
-        </View>
-      </TouchableOpacity>
-    </View>
+    <>
+      <CustomModal isModalShown={isModalShown} setIsModalShown={setIsModalShown}/>
+      <View style={styles.container}>
+        <TextInput
+          placeholder="Search"
+          style={styles.searchInput}
+          value={filter}
+          onChange={(e) => {
+            const value = e.nativeEvent.text;
+            setFilter(value);
+          }}
+        />
+        <TouchableOpacity
+        onPress={() => setIsModalShown(true)}
+        >
+          <View style={styles.imageContainer}>
+            <Image source={FilterIcon} style={styles.image} />
+          </View>
+        </TouchableOpacity>
+      </View>
+    </>
   );
 }
 

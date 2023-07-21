@@ -81,10 +81,9 @@ const styles = StyleSheet.create({
   modal: {
     marginLeft: "auto",
     marginRight: "auto",
-    paddingTop: 45,
+    paddingVertical: 30,
     paddingHorizontal: 30,
     marginTop: "50%",
-    height: "40%",
     width: "90%",
     backgroundColor: "white",
     borderRadius: "25%",
