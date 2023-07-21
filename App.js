@@ -7,10 +7,11 @@ import todos from "./constants/todos";
 
 export default function App() {
   const [toDoList, setToDoList] = useState(todos);
+  const [filteredList, setFilteredList] = useState(todos)
   const [filter, setFilter] = useState("");
 
   useEffect(() => {
-    setToDoList(todos.filter(
+    setFilteredList(toDoList.filter(
       (todo) =>
         todo.title.toLowerCase().includes(filter.toLowerCase()) ||
         todo.detail.toLowerCase().includes(filter.toLowerCase())
@@ -19,9 +20,9 @@ export default function App() {
 
   return (
     <View style={styles.base}>
-      <TagName pendingTaskNo={toDoList.length} />
+      <TagName pendingTaskNo={filteredList.length} />
       <SearchFilter filter={filter} setFilter={setFilter} />
-      <ToDoList toDoList={toDoList} />
+      <ToDoList toDoList={filteredList} />
     </View>
   );
 }

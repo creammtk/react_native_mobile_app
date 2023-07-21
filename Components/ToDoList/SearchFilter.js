@@ -41,7 +41,6 @@ const styles = StyleSheet.create({
   searchInput: {
     borderRadius: 25,
     borderColor: "black",
-    // borderWidth: 3,
     padding: 20,
     paddingLeft: 15,
     paddingRight: 15,
