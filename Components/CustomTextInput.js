@@ -11,7 +11,7 @@ export default function CustomTextInput({ value, setValue, title }) {
         marginTop: 30,
       }}
     >
-      <Text style={{ fontWeight: "100", fontSize: 16, color: "#9699a0" }}>
+      <Text style={{ fontWeight: "500", fontSize: 16, color: "#9699a0" }}>
         {title.toUpperCase()}
       </Text>
       <TextInput

@@ -13,20 +13,20 @@ import ToDoCard from "./ToDoCard";
 import CustomModal from "../CustomModal";
 import CustomTextInput from "../CustomTextInput";
 
-const CustomButton = ({ title, onPress }) => {
+const CustomButton = ({ title, onPress, color }) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View
         style={{
-          borderWidth: 0.2,
           padding: 20,
           paddingHorizontal: 30,
           justifyContent: "center",
           alignItems: "center",
           borderRadius: 10,
+          backgroundColor: color,
         }}
       >
-        <Text>{title.toUpperCase()}</Text>
+        <Text style={{ color: "white" }}>{title.toUpperCase()}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -38,6 +38,7 @@ export default function ToDoList({ toDoList, setToDoList }) {
   const [detail, setDetail] = useState("");
 
   const handleSubmit = () => {
+    if (!title || !detail) return;
     const newTodo = {
       title,
       detail,
@@ -66,8 +67,20 @@ export default function ToDoList({ toDoList, setToDoList }) {
             gap: 10,
           }}
         >
-          <CustomButton title="cancel" onPress={() => setIsModalShown(false)} />
-          <CustomButton title="submit" onPress={() => handleSubmit()} />
+          <CustomButton
+            title="cancel"
+            onPress={() => {
+              setTitle("");
+              setDetail("");
+              setIsModalShown(false);
+            }}
+            color="grey"
+          />
+          <CustomButton
+            title="submit"
+            onPress={() => handleSubmit()}
+            color="#4B852D"
+          />
         </View>
       </CustomModal>
       <View style={styles.container}>
