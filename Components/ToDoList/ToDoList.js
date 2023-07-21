@@ -7,6 +7,7 @@ import {
   Image,
   Modal,
   TextInput,
+  Alert,
 } from "react-native";
 import React, { useState } from "react";
 import ToDoCard from "./ToDoCard";
@@ -36,6 +37,27 @@ export default function ToDoList({ toDoList, setToDoList }) {
   const [isModalShown, setIsModalShown] = useState(false);
   const [title, setTitle] = useState("");
   const [detail, setDetail] = useState("");
+
+  const confirm = () => {
+    Alert.alert(
+      "Are your sure?",
+      "Are you sure you want to add this task?",
+      [
+        // The "Yes" button
+        {
+          text: "Yes",
+          onPress: () => {
+            handleSubmit()
+          },
+        },
+        // The "No" button
+        // Does nothing but dismiss the dialog when tapped
+        {
+          text: "No",
+        },
+      ]
+    );
+  }
 
   const handleSubmit = () => {
     if (!title || !detail) return;
@@ -78,7 +100,7 @@ export default function ToDoList({ toDoList, setToDoList }) {
           />
           <CustomButton
             title="submit"
-            onPress={() => handleSubmit()}
+            onPress={() => confirm()}
             color="#4B852D"
           />
         </View>
