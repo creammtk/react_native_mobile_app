@@ -15,7 +15,7 @@ export default function App() {
       (todo) =>
         todo.title.toLowerCase().includes(filter.toLowerCase()) ||
         todo.detail.toLowerCase().includes(filter.toLowerCase())
-    ));
+    ).reverse());
   }, [filter, toDoList]);
 
   return (
