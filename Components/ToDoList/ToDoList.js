@@ -6,40 +6,70 @@ import {
   TouchableOpacity,
   Image,
   Modal,
+  TextInput,
 } from "react-native";
 import React, { useState } from "react";
 import ToDoCard from "./ToDoCard";
+import CustomModal from "../CustomModal";
+import CustomTextInput from "../CustomTextInput";
 
-export default function ToDoList({ toDoList }) {
-  const [isModalShown, setIsModalShown] = useState(false);
+const CustomButton = ({ title, onPress }) => {
   return (
-    <>
-      <Modal
-        transparent={true}
-        animationType="fade"
-        visible={isModalShown}
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-          setIsModalShown(false);
+    <TouchableOpacity onPress={onPress}>
+      <View
+        style={{
+          borderWidth: 0.2,
+          padding: 20,
+          paddingHorizontal: 30,
+          justifyContent: "center",
+          alignItems: "center",
+          borderRadius: 10,
         }}
       >
-        <TouchableOpacity
-          style={styles.modalBackground}
-          onPress={() => setIsModalShown((prev) => !prev)}
+        <Text>{title.toUpperCase()}</Text>
+      </View>
+    </TouchableOpacity>
+  );
+};
+
+export default function ToDoList({ toDoList, setToDoList }) {
+  const [isModalShown, setIsModalShown] = useState(false);
+  const [title, setTitle] = useState("");
+  const [detail, setDetail] = useState("");
+
+  const handleSubmit = () => {
+    const newTodo = {
+      title,
+      detail,
+      completed: false,
+    };
+    setToDoList((prev) => [...prev, newTodo]);
+    setTitle("");
+    setDetail("");
+    setIsModalShown(false);
+  };
+
+  return (
+    <>
+      <CustomModal
+        isModalShown={isModalShown}
+        setIsModalShown={setIsModalShown}
+      >
+        <Text style={{ fontWeight: "bold", fontSize: 25 }}>Add To-Do</Text>
+        <CustomTextInput value={title} setValue={setTitle} title="Title" />
+        <CustomTextInput value={detail} setValue={setDetail} title="detail" />
+        <View
+          style={{
+            justifyContent: "flex-end",
+            flexDirection: "row",
+            marginTop: 30,
+            gap: 10,
+          }}
         >
-          <View style={styles.modal}>
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "flex-end",
-                width: "100%",
-              }}
-            >
-            </View>
-            <Text>hiadf;asd;fl;dlf;dlf;dd</Text>
-          </View>
-        </TouchableOpacity>
-      </Modal>
+          <CustomButton title="cancel" onPress={() => setIsModalShown(false)} />
+          <CustomButton title="submit" onPress={() => handleSubmit()} />
+        </View>
+      </CustomModal>
       <View style={styles.container}>
         <View style={styles.headerContainer}>
           <Text style={styles.header}>To-Do List</Text>

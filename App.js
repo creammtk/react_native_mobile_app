@@ -16,13 +16,13 @@ export default function App() {
         todo.title.toLowerCase().includes(filter.toLowerCase()) ||
         todo.detail.toLowerCase().includes(filter.toLowerCase())
     ));
-  }, [filter]);
+  }, [filter, toDoList]);
 
   return (
     <View style={styles.base}>
       <TagName pendingTaskNo={filteredList.length} />
       <SearchFilter filter={filter} setFilter={setFilter} />
-      <ToDoList toDoList={filteredList} />
+      <ToDoList toDoList={filteredList} setToDoList={setToDoList}/>
     </View>
   );
 }
