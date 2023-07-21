@@ -160,6 +160,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingLeft: 10,
     paddingRight: 5,
+    paddingBottom: 15,
   },
   modal: {
     marginLeft: "auto",
