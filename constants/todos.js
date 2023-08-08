@@ -2,7 +2,7 @@ const todoList = [
   {
     title: "Buy groceries",
     detail: "Pick up eggs, milk, bread, and vegetables from the store.",
-    completed: false,
+    completed: true,
   },
   {
     title: "Finish report",

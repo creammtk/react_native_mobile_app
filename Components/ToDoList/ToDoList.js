@@ -13,6 +13,7 @@ import React, { useState } from "react";
 import ToDoCard from "./ToDoCard";
 import CustomModal from "../CustomModal";
 import CustomTextInput from "../CustomTextInput";
+import fetcher from "../../constants/fetcher";
 
 const CustomButton = ({ title, onPress, color }) => {
   return (
@@ -39,34 +40,37 @@ export default function ToDoList({ toDoList, setToDoList }) {
   const [detail, setDetail] = useState("");
 
   const confirm = () => {
-    Alert.alert(
-      "Are your sure?",
-      "Are you sure you want to add this task?",
-      [
-        // The "Yes" button
-        {
-          text: "Yes",
-          onPress: () => {
-            handleSubmit()
-          },
+    Alert.alert("Are your sure?", "Are you sure you want to add this task?", [
+      // The "No" button
+      // Does nothing but dismiss the dialog when tapped
+      {
+        text: "No",
+      },
+      // The "Yes" button
+      {
+        text: "Yes",
+        onPress: () => {
+          handleSubmit();
         },
-        // The "No" button
-        // Does nothing but dismiss the dialog when tapped
-        {
-          text: "No",
-        },
-      ]
-    );
+      },
+    ]);
+  };
+
+  const addDataAPI = async (newTodo) => {
+    const result = await fetcher.post('todos', newTodo)
+
+    return result.data.data
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!title || !detail) return;
     const newTodo = {
       title,
       detail,
       completed: false,
     };
-    setToDoList((prev) => [...prev, newTodo]);
+    const result = await addDataAPI(newTodo)
+    setToDoList(result);
     setTitle("");
     setDetail("");
     setIsModalShown(false);
@@ -78,7 +82,7 @@ export default function ToDoList({ toDoList, setToDoList }) {
         isModalShown={isModalShown}
         setIsModalShown={setIsModalShown}
       >
-        <Text style={{ fontWeight: "bold", fontSize: 25 }}>Add To-Do</Text>
+        <Text style={{ fontWeight: "bold", fontSize: 25 }}>Add Message</Text>
         <CustomTextInput value={title} setValue={setTitle} title="Title" />
         <CustomTextInput value={detail} setValue={setDetail} title="detail" />
         <View
@@ -100,14 +104,14 @@ export default function ToDoList({ toDoList, setToDoList }) {
           />
           <CustomButton
             title="submit"
-            onPress={() => confirm()}
+            onPress={() => handleSubmit()}
             color="#4B852D"
           />
         </View>
       </CustomModal>
       <View style={styles.container}>
         <View style={styles.headerContainer}>
-          <Text style={styles.header}>To-Do List</Text>
+          <Text style={styles.header}>Cream-Frank PostIt!</Text>
           <TouchableOpacity onPress={() => setIsModalShown((prev) => !prev)}>
             <View style={styles.imageContainer}>
               <Text style={styles.header}>+</Text>

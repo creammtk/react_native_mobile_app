@@ -5,16 +5,140 @@ import {
   TextInput,
   Image,
   TouchableOpacity,
+  TouchableWithoutFeedback,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FilterIcon from "../../assets/filter.png";
 import CustomModal from "../CustomModal";
+import Checkbox from "expo-checkbox";
 
-export default function SearchFilter({ filter, setFilter }) {
-  const [isModalShown, setIsModalShown] = useState(false)
+const CustomCheckBox = ({ value, setValue, label }) => (
+  <TouchableWithoutFeedback
+    onPress={() => {
+      setValue(label, !value);
+    }}
+  >
+    <View style={{ flexDirection: "row", gap: 7 }}>
+      <Checkbox
+        value={value}
+        onValueChange={(newValue) => {
+          setValue(label, newValue);
+        }}
+        style={{ borderRadius: "5%", padding: 5 }}
+      />
+      <Text>{label}</Text>
+    </View>
+  </TouchableWithoutFeedback>
+);
+
+const CustomButton = ({ title, onPress, color }) => {
+  return (
+    <TouchableOpacity onPress={onPress}>
+      <View
+        style={{
+          borderWidth: color ? 0 : 0.2,
+          padding: 20,
+          paddingHorizontal: 30,
+          justifyContent: "center",
+          alignItems: "center",
+          borderRadius: 10,
+          backgroundColor: color,
+        }}
+      >
+        <Text style={{ color: color ? "white" : "black" }}>
+          {title.toUpperCase()}
+        </Text>
+      </View>
+    </TouchableOpacity>
+  );
+};
+
+export default function SearchFilter({
+  filter,
+  setFilter,
+  setFilteredList,
+  toDoList,
+}) {
+  const [isModalShown, setIsModalShown] = useState(false);
+  const [filterSelected, setFileterSelected] = useState({
+    completed: {
+      completed: true,
+      incompleted: true,
+    },
+  });
+
+  useEffect(() => {
+    setFilteredList(() => {
+      const temp = [...toDoList];
+      const filtered = temp.filter((todo) => {
+        if (todo.completed) return filterSelected.completed.completed;
+        return filterSelected.completed.incompleted;
+      });
+      return filtered.reverse();
+    });
+  }, [filterSelected]);
+
+  const handleCheckBoxChange = (field, value) => {
+    setFileterSelected((prev) => {
+      const result = prev.completed;
+
+      return {
+        completed: {
+          ...result,
+          [field]: value,
+        },
+      };
+    });
+  };
+
   return (
     <>
-      <CustomModal isModalShown={isModalShown} setIsModalShown={setIsModalShown}/>
+      <CustomModal
+        isModalShown={isModalShown}
+        setIsModalShown={setIsModalShown}
+      >
+        <Text style={{ fontWeight: "bold", fontSize: 25 }}>Filter</Text>
+        <View
+          style={{
+            borderBottomColor: "black",
+            borderBottomWidth: StyleSheet.hairlineWidth,
+            marginTop: 5,
+          }}
+        />
+        <View style={{ marginTop: 20 }}>
+          <Text style={{ fontWeight: "400", fontSize: 20 }}>Completed?</Text>
+          <View
+            style={{
+              marginTop: 15,
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 10,
+            }}
+          >
+            <CustomCheckBox
+              label="completed"
+              value={filterSelected.completed.completed}
+              setValue={handleCheckBoxChange}
+            />
+            <CustomCheckBox
+              label="incompleted"
+              value={filterSelected.completed.incompleted}
+              setValue={handleCheckBoxChange}
+            />
+          </View>
+          {/* <View
+            style={{
+              flexDirection: "row",
+              marginTop: 30,
+              gap: 10,
+              justifyContent: "flex-end",
+            }}
+          >
+            <CustomButton title="Cancel" />
+            <CustomButton title="apply" />
+          </View> */}
+        </View>
+      </CustomModal>
       <View style={styles.container}>
         <TextInput
           placeholder="Search"
@@ -25,9 +149,7 @@ export default function SearchFilter({ filter, setFilter }) {
             setFilter(value);
           }}
         />
-        <TouchableOpacity
-        onPress={() => setIsModalShown(true)}
-        >
+        <TouchableOpacity onPress={() => setIsModalShown(true)}>
           <View style={styles.imageContainer}>
             <Image source={FilterIcon} style={styles.image} />
           </View>

@@ -1,13 +1,30 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 
-export default function ToDoCard({todo}) {
-
+export default function ToDoCard({ todo }) {
   return (
-    <View style={styles.cardContainer}>
-      <Text style={styles.textHeader}>{todo.title}</Text>
+    <View
+      style={{
+        ...styles.cardContainer,
+        ...(todo.completed && { backgroundColor: "#D5CABD" }),
+      }}
+    >
+      <Text
+        style={{
+          ...styles.textHeader,
+          ...(todo.completed && { color: "grey" }),
+        }}
+      >
+        {todo.title}
+      </Text>
       <Text></Text>
-      <Text>{todo.detail}</Text>
+      <Text
+        style={{
+          ...(todo.completed && { color: "grey" }),
+        }}
+      >
+        {todo.detail}
+      </Text>
     </View>
   );
 }

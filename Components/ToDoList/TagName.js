@@ -4,7 +4,7 @@ import CustomText from "../CustomText";
 import avatar from "../../assets/man.png";
 
 export default function TagName({ pendingTaskNo }) {
-  const name = "Franku";
+  const name = "Franku & Creammu";
 
   return (
     <View style={styles.container}>
@@ -12,7 +12,7 @@ export default function TagName({ pendingTaskNo }) {
         <CustomText style={styles.greetingText}>Hi! {name}</CustomText>
         <TouchableOpacity>
           <CustomText style={styles.pendingText}>
-            {pendingTaskNo || 0} Tasks pending
+            {pendingTaskNo || 0} messages
           </CustomText>
         </TouchableOpacity>
       </View>
